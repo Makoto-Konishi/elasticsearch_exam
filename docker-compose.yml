@@ -7,35 +7,18 @@ services:
       - .:/elasticsearch_exam
     ports:
       - "3000:3000"
-  es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.2.3
-    container_name: es01
+  es:
+    build: ./docker/es
+    container_name: es
     environment:
-      - xpack.security.enabled=false
-      - node.name=es01
-      - discovery.seed_hosts=es02
-      - cluster.initial_master_nodes=es01,es02
       - cluster.name=docker-cluster
+      - discovery.type=single-node
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
     ulimits:
       memlock:
         soft: -1
         hard: -1
     ports:
       - "9200:9200"
-  es02:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.2.3
-    container_name: es02
-    environment:
-      - xpack.security.enabled=false
-      - node.name=es02
-      - discovery.seed_hosts=es01
-      - cluster.initial_master_nodes=es01,es02
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
