@@ -9,6 +9,7 @@ services:
       - "3000:3000"
   es:
     build: ./docker/es
+    hostname: doc-elastic101
     container_name: es
     environment:
       - cluster.name=docker-cluster
@@ -16,9 +17,18 @@ services:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - xpack.security.enabled=false
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
     ports:
       - "9200:9200"
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.2.3
+    environment:
+      SERVER_NAME: localhost:5601
+      ELASTICSEARCH_HOSTS: http://doc-elastic101:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - es
