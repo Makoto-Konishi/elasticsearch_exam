@@ -1,9 +1,10 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %i[ show edit update destroy ]
+  before_action :set_article, only: %i[show edit update destroy]
 
   # GET /articles or /articles.json
   def index
-    @articles = Article.all
+    debugger
+    @articles = search_word.present? ? Article.es_search(search_word).records.to_a : Article.all
   end
 
   # GET /articles/1 or /articles/1.json
@@ -58,13 +59,18 @@ class ArticlesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_article
-      @article = Article.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def article_params
-      params.require(:article).permit(:title, :description)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_article
+    @article = Article.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def article_params
+    params.require(:article).permit(:title, :description)
+  end
+
+  def search_word
+    @search_word ||= params[:search_word]
+  end
 end

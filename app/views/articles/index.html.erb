@@ -2,6 +2,17 @@
 
 <h1>Articles</h1>
 
+<div style="margin-top: 30px">
+  <%= form_with(url: articles_path, method: :get) do |f| %>
+    <div class="control">
+      <%= f.text_field :search_word, placeholder: "記事を検索する" %>
+    </div>
+    <div class="control">
+      <%= f.submit "検索", class: "button is-info" %>
+    </div>
+  <% end %>
+</div>
+
 <div id="articles">
   <% @articles.each do |article| %>
     <%= render article %>
