@@ -3,7 +3,6 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    debugger
     @articles = search_word.present? ? Article.es_search(search_word).records.to_a : Article.all
   end
 

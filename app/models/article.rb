@@ -1,5 +1,7 @@
 class Article < ApplicationRecord
-  include ArticleSearchable
+  include Searchable
 
-  belongs_to :user
+  belongs_to :publisher
+  belongs_to :author
+  belongs_to :category
 end
