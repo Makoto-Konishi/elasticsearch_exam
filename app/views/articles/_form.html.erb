@@ -22,6 +22,21 @@
   </div>
 
   <div>
+    <%= form.label :publisher_id, style: "display: block" %>
+    <%= form.select :publisher_id, Publisher.all.pluck(:id) %>
+  </div>
+
+  <div>
+    <%= form.label :author_id, style: "display: block" %>
+    <%= form.select :author_id, Author.all.pluck(:id) %>
+  </div>
+
+  <div>
+    <%= form.label :category_id, style: "display: block" %>
+    <%= form.select :category_id, Category.all.pluck(:id) %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

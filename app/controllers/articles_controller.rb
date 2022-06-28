@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = search_word.present? ? Article.es_search(search_word).records.to_a : Article.all
+    @articles = search_word.present? ? Article.search(search_word).records.to_a : Article.all
   end
 
   # GET /articles/1 or /articles/1.json
@@ -50,7 +50,6 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1 or /articles/1.json
   def destroy
     @article.destroy
-
     respond_to do |format|
       format.html { redirect_to articles_url, notice: "Article was successfully destroyed." }
       format.json { head :no_content }
@@ -66,7 +65,7 @@ class ArticlesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def article_params
-    params.require(:article).permit(:title, :description)
+    params.require(:article).permit(:title, :description, :publisher_id, :category_id, :author_id)
   end
 
   def search_word
