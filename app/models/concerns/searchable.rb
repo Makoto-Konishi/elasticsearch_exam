@@ -1,5 +1,6 @@
 module Searchable
   extend ActiveSupport::Concern
+
   included do # ブロックに定義した処理を include する側のクラスのコンテキストで実行する
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
@@ -8,7 +9,7 @@ module Searchable
     index_name "elasticsearch_article_#{Rails.env}"
 
     # 登録していくドキュメントのマッピング情報を定義。
-    # ここでフィールドのタイプや、使用するアナライザーなどを指定できる。
+    # ここでフィールドのタイプや、アナライザーなどを指定できる。
     settings do
       mappings dynamic: 'false' do
         indexes :publisher, type: 'text', analyzer: 'kuromoji'
@@ -17,16 +18,20 @@ module Searchable
         indexes :title, type: 'text', analyzer: 'kuromoji'
         indexes :description, type: 'text', analyzer: 'kuromoji'
       end
-    end
-    # モデルの情報を登録するために、mappingで定義した情報に合わせてjsonに変換する。
-    def as_indexed_json(options = {})
-      attributes
-        .symbolize_keys
-        .slice(:title, :description)
-        .merge(publisher: publisher.name, author: author.name, category: category.name)
+      # モデルの情報を登録するために、mappingで定義した情報に合わせてjsonに変換する。
+      def as_indexed_json(options = {})
+        attributes
+          .symbolize_keys
+          .slice(:title, :description)
+          .merge(publisher: publisher.name, author: author.name, category: category.name)
+          .as_json
+      end
+
+      after_save    { ElasticsearchWorker.perform_async(:index,  self.id) }
+      after_destroy { ElasticsearchWorker.perform_async(:delete, self.id) }
     end
   end
-
+  
   class_methods do
     # indexを作成するメソッド。作成済みの場合は再作成するように一度削除処理を入れている.
     def create_index!
@@ -38,6 +43,5 @@ module Searchable
                               mappings: self.mappings.to_hash
                             })
     end
-
   end
 end

@@ -1,0 +1,11 @@
+default: &default
+  db:
+    sidekiq: 0
+
+development:
+  <<: *default
+  host: redis
+
+test:
+  <<: *default
+  host: redis

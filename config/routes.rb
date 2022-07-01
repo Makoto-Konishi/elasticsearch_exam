@@ -3,8 +3,5 @@ Rails.application.routes.draw do
   resources :authors
   resources :categories
   resources :articles
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # mount Sidekiq::Web, at: "/sidekiq" # sidekiqのダッシュボードを見れるようにするため
 end
