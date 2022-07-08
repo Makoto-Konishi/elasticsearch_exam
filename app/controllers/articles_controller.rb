@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = search_word.present? ? Article.search(search_word).records.to_a : Article.all
+    @articles = search_word.present? ? Article.search(search_word) : Article.all
   end
 
   # GET /articles/1 or /articles/1.json
@@ -65,7 +65,7 @@ class ArticlesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def article_params
-    params.require(:article).permit(:title, :description, :publisher_id, :category_id, :author_id)
+    params.require(:article).permit(:title, :description, :publisher_id, :category_id, :author_id, :pdf)
   end
 
   def search_word

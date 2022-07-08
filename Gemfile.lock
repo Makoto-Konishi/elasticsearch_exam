@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    Ascii85 (1.1.0)
     actioncable (7.0.3)
       actionpack (= 7.0.3)
       activesupport (= 7.0.3)
@@ -68,6 +69,7 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    afm (0.2.2)
     bindex (0.8.1)
     bootsnap (1.12.0)
       msgpack (~> 1.2)
@@ -94,11 +96,6 @@ GEM
       elasticsearch-transport (= 7.17.1)
     elasticsearch-api (7.17.1)
       multi_json
-    elasticsearch-model (7.2.1)
-      activesupport (> 3)
-      elasticsearch (~> 7)
-      hashie
-    elasticsearch-rails (7.2.1)
     elasticsearch-transport (7.17.1)
       faraday (~> 1)
       multi_json
@@ -128,6 +125,7 @@ GEM
     faraday-retry (1.0.3)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    hashery (2.1.2)
     hashie (5.0.0)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
@@ -174,6 +172,12 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.6-x86_64-linux)
       racc (~> 1.4)
+    pdf-reader (2.10.0)
+      Ascii85 (~> 1.0)
+      afm (~> 0.2.1)
+      hashery (~> 2.0)
+      ruby-rc4
+      ttfunk
     public_suffix (4.0.7)
     puma (5.6.4)
       nio4r (~> 2.0)
@@ -215,8 +219,12 @@ GEM
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.5)
+    ruby-rc4 (0.1.5)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
+    searchkick (5.0.4)
+      activemodel (>= 5.2)
+      hashie
     selenium-webdriver (4.2.1)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -245,6 +253,7 @@ GEM
     thor (1.2.1)
     tilt (2.0.10)
     timeout (0.3.0)
+    ttfunk (1.7.0)
     turbo-rails (1.1.1)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
@@ -276,12 +285,13 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
-  elasticsearch-model
-  elasticsearch-rails
+  elasticsearch
   importmap-rails
   jbuilder
+  pdf-reader
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.3)
+  searchkick
   selenium-webdriver
   sidekiq
   sinatra

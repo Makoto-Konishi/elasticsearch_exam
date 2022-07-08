@@ -20,4 +20,13 @@
     <strong>Category:</strong>
     <%= article.category.name %>
   </p>
+
+  <p>
+    <% if article.pdf.attached? %>
+      <div>
+        <p><strong>PDF:</strong></p>
+        <object data="<%= url_for(article.pdf) %>" type="application/pdf" width="400" height="400"></object>
+      </div>
+    <% end %>
+  <p>
 </div>
