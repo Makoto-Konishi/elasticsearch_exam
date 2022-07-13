@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = search_word.present? ? Article.search(search_word) : Article.all
+    @articles = search_word.present? ? Article.search(search_word).records.to_a : Article.all
   end
 
   # GET /articles/1 or /articles/1.json

@@ -71,8 +71,9 @@ group :test do
   gem "webdrivers"
 end
 
-gem "searchkick"
-gem "elasticsearch"
+gem 'elasticsearch-dsl'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 gem 'pdf-reader'
 gem 'sidekiq'
 gem 'sinatra', require: false

@@ -1,2 +1,2 @@
 FROM docker.elastic.co/elasticsearch/elasticsearch:8.2.3
-RUN bin/elasticsearch-plugin install analysis-kuromoji
+RUN bin/elasticsearch-plugin install analysis-kuromoji && bin/elasticsearch-plugin install analysis-icu

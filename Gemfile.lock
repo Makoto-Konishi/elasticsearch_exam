@@ -96,6 +96,12 @@ GEM
       elasticsearch-transport (= 7.17.1)
     elasticsearch-api (7.17.1)
       multi_json
+    elasticsearch-dsl (0.1.10)
+    elasticsearch-model (7.2.1)
+      activesupport (> 3)
+      elasticsearch (~> 7)
+      hashie
+    elasticsearch-rails (7.2.1)
     elasticsearch-transport (7.17.1)
       faraday (~> 1)
       multi_json
@@ -222,9 +228,6 @@ GEM
     ruby-rc4 (0.1.5)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
-    searchkick (5.0.4)
-      activemodel (>= 5.2)
-      hashie
     selenium-webdriver (4.2.1)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -285,13 +288,14 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
-  elasticsearch
+  elasticsearch-dsl
+  elasticsearch-model
+  elasticsearch-rails
   importmap-rails
   jbuilder
   pdf-reader
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.3)
-  searchkick
   selenium-webdriver
   sidekiq
   sinatra

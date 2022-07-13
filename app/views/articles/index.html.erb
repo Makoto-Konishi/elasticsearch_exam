@@ -15,9 +15,34 @@
 
 <div id="articles">
   <% @articles.each do |article| %>
-    <%= render article %>
     <p>
-      <%= link_to "Show this article", article %>
+      <strong>Title:</strong>
+      <%= link_to article.title, article_path(article) %>
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+      <%= article.description %>
+    </p>
+    <p>
+      <strong>Author:</strong>
+      <%= article.author.name %>
+    </p>
+    <p>
+      <strong>Publisher:</strong>
+      <%= article.publisher.name %>
+    </p>
+    <p>
+      <strong>Category:</strong>
+      <%= article.category.name %>
+    </p>
+    <p>
+    <% if article.pdf.present? %>
+      <div>
+        <p><strong>PDF:</strong></p>
+        <object data="<%= url_for(article.pdf) %>" type="application/pdf" width="400" height="400"></object>
+      </div>
+    <% end %>
     </p>
   <% end %>
 </div>
