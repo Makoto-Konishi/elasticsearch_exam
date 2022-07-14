@@ -38,3 +38,12 @@ services:
     command: redis-server --appendonly yes
     ports:
       - "6379:6379"
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes:
+      - .:/elasticsearch_exam
+    depends_on:
+      - redis
+    environment:
+      REDIS_URL: redis://redis:6379
